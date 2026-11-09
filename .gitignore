@@ -1,0 +1,17 @@
+.research/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+build/
+dist/
+*.egg-info/
+logs/
+.work/
+.pi/
+projects/
+microwind-mcp.json
+config.json
+examples/generated/mcp_smoke/
+examples/generated/dsch_*_copy.sch
+examples/generated/*.bak*

@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "microwind-mcp"
+version = "0.1.0"
+description = "MCP server for Microwind 3.x and DSCH 3.x layout/schematic automation"
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = ["mcp", "microwind", "dsch", "eda", "layout"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Operating System :: Microsoft :: Windows",
+  "Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)",
+]
+dependencies = ["mcp>=1.0,<2", "Pillow>=10"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+report = ["pymupdf>=1.24", "python-docx>=1.1"]
+
+[project.scripts]
+microwind-mcp = "microwind.server_app:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["microwind", "microwind_tools"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"

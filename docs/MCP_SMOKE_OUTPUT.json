@@ -1,0 +1,2025 @@
+[
+ {
+  "tools_list": [
+   {
+    "name": "microwind_detect_installation",
+    "description": "Detect Microwind 3.5 and DSCH 3.5: executable paths, rule files, example counts.\n\nRead-only. Returns `installed` per product plus the project directories that writes\nare allowed in, and whether the server is in read-only mode.\n",
+    "inputSchema": {
+     "properties": {},
+     "title": "microwind_detect_installationArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "dsch_detect_installation",
+    "description": "Detect DSCH 3.5 and report its `.tec` technologies and schematic/symbol fixtures.",
+    "inputSchema": {
+     "properties": {},
+     "title": "dsch_detect_installationArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_open",
+    "description": "Launch Microwind 3.5 and optionally open a `.MSK` layout through File -> Open.\n\nModifies process state, not files. `loaded` is true only when the window title shows\nthe requested document and no modal dialog appeared.\n",
+    "inputSchema": {
+     "properties": {
+      "path": {
+       "default": "",
+       "title": "Path",
+       "type": "string"
+      },
+      "settle": {
+       "default": 5.0,
+       "title": "Settle",
+       "type": "number"
+      }
+     },
+     "title": "microwind_openArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "dsch_open",
+    "description": "Launch DSCH 3.5 and optionally open a `.sch` schematic through File -> Open.",
+    "inputSchema": {
+     "properties": {
+      "path": {
+       "default": "",
+       "title": "Path",
+       "type": "string"
+      },
+      "settle": {
+       "default": 5.0,
+       "title": "Settle",
+       "type": "number"
+      }
+     },
+     "title": "dsch_openArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_window_state",
+    "description": "Report visible windows (titles verbatim), modal dialogs and tracked processes.",
+    "inputSchema": {
+     "properties": {
+      "pid": {
+       "default": 0,
+       "title": "Pid",
+       "type": "integer"
+      }
+     },
+     "title": "microwind_window_stateArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_screenshot",
+    "description": "Capture the current desktop to a PNG file and return its path and size.",
+    "inputSchema": {
+     "properties": {
+      "output": {
+       "title": "Output",
+       "type": "string"
+      }
+     },
+     "required": [
+      "output"
+     ],
+     "title": "microwind_screenshotArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_close",
+    "description": "Terminate exactly the given PID if this server started it; refuses unknown PIDs.",
+    "inputSchema": {
+     "properties": {
+      "pid": {
+       "title": "Pid",
+       "type": "integer"
+      }
+     },
+     "required": [
+      "pid"
+     ],
+     "title": "microwind_closeArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_list_projects",
+    "description": "List `.MSK` layouts and `.sch` schematics under the project directories.",
+    "inputSchema": {
+     "properties": {
+      "directory": {
+       "default": "",
+       "title": "Directory",
+       "type": "string"
+      },
+      "limit": {
+       "default": 200,
+       "title": "Limit",
+       "type": "integer"
+      }
+     },
+     "title": "microwind_list_projectsArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_read_layout",
+    "description": "Summarise a layout: rectangle/label counts, layers, bbox, size in lambda and \u00b5m.",
+    "inputSchema": {
+     "properties": {
+      "path": {
+       "title": "Path",
+       "type": "string"
+      }
+     },
+     "required": [
+      "path"
+     ],
+     "title": "microwind_read_layoutArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_parse_layout",
+    "description": "Dump the raw record stream of a layout, optionally filtered by record kind (REC, TITLE\u2026).",
+    "inputSchema": {
+     "properties": {
+      "path": {
+       "title": "Path",
+       "type": "string"
+      },
+      "limit": {
+       "default": 200,
+       "title": "Limit",
+       "type": "integer"
+      },
+      "kind": {
+       "default": "",
+       "title": "Kind",
+       "type": "string"
+      }
+     },
+     "required": [
+      "path"
+     ],
+     "title": "microwind_parse_layoutArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_validate_file",
+    "description": "Structural validation of a `.MSK`/`.sch`/`.sym` file. Not electrical verification.",
+    "inputSchema": {
+     "properties": {
+      "path": {
+       "title": "Path",
+       "type": "string"
+      }
+     },
+     "required": [
+      "path"
+     ],
+     "title": "microwind_validate_fileArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_create_layout",
+    "description": "Create a new empty layout with a valid `VERSION/FIG/BB/SIMU/ZOOM/FFIG` skeleton.",
+    "inputSchema": {
+     "properties": {
+      "path": {
+       "title": "Path",
+       "type": "string"
+      },
+      "width": {
+       "default": 200,
+       "title": "Width",
+       "type": "integer"
+      },
+      "height": {
+       "default": 200,
+       "title": "Height",
+       "type": "integer"
+      }
+     },
+     "required": [
+      "path"
+     ],
+     "title": "microwind_create_layoutArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_add_rectangle",
+    "description": "Add a `REC` rectangle on `layer` at (x,y) with size (w,h) in lambda units.",
+    "inputSchema": {
+     "properties": {
+      "path": {
+       "title": "Path",
+       "type": "string"
+      },
+      "x": {
+       "title": "X",
+       "type": "integer"
+      },
+      "y": {
+       "title": "Y",
+       "type": "integer"
+      },
+      "w": {
+       "title": "W",
+       "type": "integer"
+      },
+      "h": {
+       "title": "H",
+       "type": "integer"
+      },
+      "layer": {
+       "title": "Layer",
+       "type": "string"
+      },
+      "extra": {
+       "default": -1,
+       "title": "Extra",
+       "type": "integer"
+      }
+     },
+     "required": [
+      "path",
+      "x",
+      "y",
+      "w",
+      "h",
+      "layer"
+     ],
+     "title": "microwind_add_rectangleArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_add_label",
+    "description": "Add a net label with the confirmed `TITLE` + `$` code syntax ($1 VDD, $0 VSS).",
+    "inputSchema": {
+     "properties": {
+      "path": {
+       "title": "Path",
+       "type": "string"
+      },
+      "x": {
+       "title": "X",
+       "type": "integer"
+      },
+      "y": {
+       "title": "Y",
+       "type": "integer"
+      },
+      "text": {
+       "title": "Text",
+       "type": "string"
+      },
+      "code": {
+       "default": "$-",
+       "title": "Code",
+       "type": "string"
+      }
+     },
+     "required": [
+      "path",
+      "x",
+      "y",
+      "text"
+     ],
+     "title": "microwind_add_labelArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_modify_layout",
+    "description": "Move/resize/remove rectangles matched by `{x, y[, layer]}`; other records untouched.",
+    "inputSchema": {
+     "properties": {
+      "path": {
+       "title": "Path",
+       "type": "string"
+      },
+      "move": {
+       "anyOf": [
+        {
+         "items": {
+          "additionalProperties": true,
+          "type": "object"
+         },
+         "type": "array"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Move"
+      },
+      "resize": {
+       "anyOf": [
+        {
+         "items": {
+          "additionalProperties": true,
+          "type": "object"
+         },
+         "type": "array"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Resize"
+      },
+      "remove": {
+       "anyOf": [
+        {
+         "items": {
+          "additionalProperties": true,
+          "type": "object"
+         },
+         "type": "array"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Remove"
+      }
+     },
+     "required": [
+      "path"
+     ],
+     "title": "microwind_modify_layoutArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_get_layers",
+    "description": "List all layer codes with names/kinds, via pairings and metal indices.",
+    "inputSchema": {
+     "properties": {},
+     "title": "microwind_get_layersArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_get_technology",
+    "description": "Return the parsed technology: lambda, metal layers, cif map, selected design rules.",
+    "inputSchema": {
+     "properties": {
+      "path": {
+       "default": "",
+       "title": "Path",
+       "type": "string"
+      }
+     },
+     "title": "microwind_get_technologyArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_layers_used",
+    "description": "Layer histogram for one layout, with unknown codes called out explicitly.",
+    "inputSchema": {
+     "properties": {
+      "path": {
+       "title": "Path",
+       "type": "string"
+      }
+     },
+     "required": [
+      "path"
+     ],
+     "title": "microwind_layers_usedArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_generate_power_grid",
+    "description": "Generate a VDD/VSS power grid on an existing layout (`path`) or a new one (`new_file`).\n\nOdd-listed layers become vertical columns, even-listed ones horizontal rows; vias are\nplaced only where both rails carry the same supply. Collisions with existing same-layer\ngeometry are detected first and the grid is shifted right, like Microwind's compiler.\nWith `check_only` nothing is written.\n",
+    "inputSchema": {
+     "properties": {
+      "path": {
+       "default": "",
+       "title": "Path",
+       "type": "string"
+      },
+      "new_file": {
+       "default": "",
+       "title": "New File",
+       "type": "string"
+      },
+      "layers": {
+       "anyOf": [
+        {
+         "items": {
+          "type": "string"
+         },
+         "type": "array"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Layers"
+      },
+      "width": {
+       "default": 200,
+       "title": "Width",
+       "type": "integer"
+      },
+      "height": {
+       "default": 200,
+       "title": "Height",
+       "type": "integer"
+      },
+      "columns": {
+       "default": 4,
+       "title": "Columns",
+       "type": "integer"
+      },
+      "rows": {
+       "default": 3,
+       "title": "Rows",
+       "type": "integer"
+      },
+      "wire_width": {
+       "default": 4,
+       "title": "Wire Width",
+       "type": "integer"
+      },
+      "rail_widths": {
+       "anyOf": [
+        {
+         "additionalProperties": {
+          "type": "integer"
+         },
+         "type": "object"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Rail Widths"
+      },
+      "margin": {
+       "default": 0,
+       "title": "Margin",
+       "type": "integer"
+      },
+      "offset_x": {
+       "default": 0,
+       "title": "Offset X",
+       "type": "integer"
+      },
+      "offset_y": {
+       "default": 0,
+       "title": "Offset Y",
+       "type": "integer"
+      },
+      "voltage_pattern": {
+       "anyOf": [
+        {
+         "items": {
+          "type": "string"
+         },
+         "type": "array"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Voltage Pattern"
+      },
+      "via_size": {
+       "default": 2,
+       "title": "Via Size",
+       "type": "integer"
+      },
+      "via_pad": {
+       "default": 4,
+       "title": "Via Pad",
+       "type": "integer"
+      },
+      "check_only": {
+       "default": false,
+       "title": "Check Only",
+       "type": "boolean"
+      }
+     },
+     "title": "microwind_generate_power_gridArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_generate_power_rails",
+    "description": "Generate one bundle of parallel power rails on a single metal layer.",
+    "inputSchema": {
+     "properties": {
+      "path": {
+       "title": "Path",
+       "type": "string"
+      },
+      "layer": {
+       "default": "ME",
+       "title": "Layer",
+       "type": "string"
+      },
+      "count": {
+       "default": 4,
+       "title": "Count",
+       "type": "integer"
+      },
+      "pitch": {
+       "default": 40,
+       "title": "Pitch",
+       "type": "integer"
+      },
+      "length": {
+       "default": 150,
+       "title": "Length",
+       "type": "integer"
+      },
+      "width": {
+       "default": 4,
+       "title": "Width",
+       "type": "integer"
+      },
+      "vertical": {
+       "default": true,
+       "title": "Vertical",
+       "type": "boolean"
+      },
+      "net": {
+       "default": "VDD",
+       "title": "Net",
+       "type": "string"
+      }
+     },
+     "required": [
+      "path"
+     ],
+     "title": "microwind_generate_power_railsArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_analyze_power_grid",
+    "description": "Report rails, power labels and the connected components that carry VDD/VSS.",
+    "inputSchema": {
+     "properties": {
+      "path": {
+       "title": "Path",
+       "type": "string"
+      }
+     },
+     "required": [
+      "path"
+     ],
+     "title": "microwind_analyze_power_gridArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_list_gate_types",
+    "description": "List the CMOS cells this server can generate and their device netlists.",
+    "inputSchema": {
+     "properties": {},
+     "title": "microwind_list_gate_typesArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_generate_cmos_gate",
+    "description": "Generate `inverter`, `nand2` or `nor2` from `.rul`-derived geometry, then verify it.",
+    "inputSchema": {
+     "properties": {
+      "gate": {
+       "title": "Gate",
+       "type": "string"
+      },
+      "path": {
+       "title": "Path",
+       "type": "string"
+      }
+     },
+     "required": [
+      "gate",
+      "path"
+     ],
+     "title": "microwind_generate_cmos_gateArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_run_checks",
+    "description": "Run independent geometric checks: min width, spacing, overlaps, connectivity, power.\n\nThis is NOT Microwind's native DRC; the report says so, and `native_drc_run` is false.\n",
+    "inputSchema": {
+     "properties": {
+      "path": {
+       "title": "Path",
+       "type": "string"
+      },
+      "tech": {
+       "default": "",
+       "title": "Tech",
+       "type": "string"
+      }
+     },
+     "required": [
+      "path"
+     ],
+     "title": "microwind_run_checksArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_compile_cell",
+    "description": "Compile `out=<expression>` (Microwind Compile-One-Line syntax) into a native .MSK.\n\nComplex gates are built from NOT(F); non-monotone functions are decomposed into\nNAND/NOR/INV stages.  Every stage is sized to the unit inverter (4/2 n, 8/2 p).\nBody ties are included and the independent rule checks run on the result.\n",
+    "inputSchema": {
+     "properties": {
+      "expression": {
+       "title": "Expression",
+       "type": "string"
+      },
+      "path": {
+       "title": "Path",
+       "type": "string"
+      },
+      "tech": {
+       "default": "",
+       "title": "Tech",
+       "type": "string"
+      }
+     },
+     "required": [
+      "expression",
+      "path"
+     ],
+     "title": "microwind_compile_cellArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_draw_cell",
+    "description": "Render schematic, layout, stick diagram and cross-section PNGs for an expression.",
+    "inputSchema": {
+     "properties": {
+      "expression": {
+       "title": "Expression",
+       "type": "string"
+      },
+      "output_dir": {
+       "title": "Output Dir",
+       "type": "string"
+      },
+      "kind": {
+       "default": "all",
+       "title": "Kind",
+       "type": "string"
+      },
+      "tech": {
+       "default": "",
+       "title": "Tech",
+       "type": "string"
+      }
+     },
+     "required": [
+      "expression",
+      "output_dir"
+     ],
+     "title": "microwind_draw_cellArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_cross_section",
+    "description": "Layered cross-section PNG of a layout cut at `y=at` (or `x=at`), in lambda units.",
+    "inputSchema": {
+     "properties": {
+      "path": {
+       "title": "Path",
+       "type": "string"
+      },
+      "output": {
+       "title": "Output",
+       "type": "string"
+      },
+      "axis": {
+       "default": "y",
+       "title": "Axis",
+       "type": "string"
+      },
+      "at": {
+       "default": 2,
+       "title": "At",
+       "type": "integer"
+      },
+      "start": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Start"
+      },
+      "end": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "End"
+      }
+     },
+     "required": [
+      "path",
+      "output"
+     ],
+     "title": "microwind_cross_sectionArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "microwind_simulate_cell",
+    "description": "Simulate the compiled transistor netlist with ngspice: truth table, waves, delays.\n\nUses the vendor `spice.lib` models.  Labelled ngspice - this is not Microwind's\nbuilt-in SPICE, which has no automation interface.\n",
+    "inputSchema": {
+     "properties": {
+      "expression": {
+       "title": "Expression",
+       "type": "string"
+      },
+      "output_dir": {
+       "title": "Output Dir",
+       "type": "string"
+      },
+      "models": {
+       "default": "",
+       "title": "Models",
+       "type": "string"
+      },
+      "vdd": {
+       "default": 1.2,
+       "title": "Vdd",
+       "type": "number"
+      },
+      "cload_fF": {
+       "default": 1.0,
+       "title": "Cload Ff",
+       "type": "number"
+      },
+      "delays": {
+       "default": true,
+       "title": "Delays",
+       "type": "boolean"
+      }
+     },
+     "required": [
+      "expression",
+      "output_dir"
+     ],
+     "title": "microwind_simulate_cellArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "dsch_read_schematic",
+    "description": "Read a DSCH schematic: components, pins, wires, embedded Verilog and validation.",
+    "inputSchema": {
+     "properties": {
+      "path": {
+       "title": "Path",
+       "type": "string"
+      },
+      "include_nets": {
+       "default": false,
+       "title": "Include Nets",
+       "type": "boolean"
+      },
+      "limit": {
+       "default": 100,
+       "title": "Limit",
+       "type": "integer"
+      }
+     },
+     "required": [
+      "path"
+     ],
+     "title": "dsch_read_schematicArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "dsch_validate_schematic",
+    "description": "Structural validation of a `.sch`/`.sym`: DSCH header, SYM/FSYM balance, pins.",
+    "inputSchema": {
+     "properties": {
+      "path": {
+       "title": "Path",
+       "type": "string"
+      }
+     },
+     "required": [
+      "path"
+     ],
+     "title": "dsch_validate_schematicArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "dsch_list_symbols",
+    "description": "List the DSCH 3.5 `.sym` symbol library that ships with the installation.",
+    "inputSchema": {
+     "properties": {
+      "limit": {
+       "default": 200,
+       "title": "Limit",
+       "type": "integer"
+      }
+     },
+     "title": "dsch_list_symbolsArguments",
+     "type": "object"
+    }
+   },
+   {
+    "name": "dsch_schematic_netlist",
+    "description": "Derive nets from schematic wire geometry: pins grouped by electrical connectivity.",
+    "inputSchema": {
+     "properties": {
+      "path": {
+       "title": "Path",
+       "type": "string"
+      }
+     },
+     "required": [
+      "path"
+     ],
+     "title": "dsch_schematic_netlistArguments",
+     "type": "object"
+    }
+   }
+  ]
+ },
+ {
+  "tool": "microwind_detect_installation",
+  "arguments": {},
+  "result": {
+   "microwind": {
+    "product": "microwind",
+    "root": "<microwind-home>",
+    "exe": "<microwind-home>\\system\\Microwind35.exe",
+    "extra_exes": [
+     "<microwind-home>\\system\\Silicon.exe"
+    ],
+    "rule_files": [
+     "cmos012.rul",
+     "cmos018.rul",
+     "cmos025.rul",
+     "cmos035.rul",
+     "cmos06.rul",
+     "cmos08.rul",
+     "cmos12.rul",
+     "cmos22n.rul",
+     "cmos32n.rul",
+     "cmos45n.rul",
+     "cmos65n.rul",
+     "cmos65n_hp.rul",
+     "cmos90n.rul",
+     "cmos90n_hp.rul",
+     "default.rul",
+     "soi012.rul"
+    ],
+    "examples_dir": "<microwind-home>\\Examples",
+    "example_count": 245,
+    "version": "",
+    "notes": [
+     "manual present: Microwind_v35.pdf"
+    ],
+    "installed": true
+   },
+   "dsch": {
+    "product": "dsch",
+    "root": "<dsch-home>",
+    "exe": "<dsch-home>\\system\\Dsch35.exe",
+    "extra_exes": [],
+    "rule_files": [
+     "cmos012.tec",
+     "cmos018.tec",
+     "cmos025.tec",
+     "cmos06.tec",
+     "cmos08.tec",
+     "cmos65n.tec",
+     "cmos90n.tec",
+     "default.tec"
+    ],
+    "examples_dir": "<dsch-home>\\examples",
+    "example_count": 52,
+    "version": "",
+    "notes": [],
+    "installed": true
+   },
+   "config": {
+    "MICROWIND_HOME": "<microwind-home>",
+    "DSCH_HOME": "<dsch-home>"
+   },
+   "project_dirs": [
+    "examples\\generated\\mcp_smoke"
+   ],
+   "readonly": false,
+   "ok": true
+  }
+ },
+ {
+  "tool": "microwind_get_technology",
+  "arguments": {},
+  "result": {
+   "file": "<microwind-home>\\rules\\cmos012.rul",
+   "version": "3.1",
+   "name": "CMOS 0.12\u00b5m - 6 Metal",
+   "lambda_um": 0.06,
+   "gate_length_um": 0.12,
+   "metal_layers": 6,
+   "rule_count": 208,
+   "cif_layers": [
+    "aarea",
+    "contact",
+    "diffn",
+    "diffp",
+    "metal",
+    "metal2",
+    "metal3",
+    "metal4",
+    "metal5",
+    "metal6",
+    "nwell",
+    "passiv",
+    "poly",
+    "text",
+    "via",
+    "via2",
+    "via3",
+    "via4",
+    "via5"
+   ],
+   "switches": {
+    "salicide": 1.0,
+    "edram": 1.0,
+    "mimcapa": 1.0,
+    "lowK": 3.1
+   },
+   "vdd": 1.2,
+   "temperature": 27.0,
+   "found": true,
+   "sample_rules": {
+    "r201": 4.0,
+    "r302": 2.0,
+    "r401": 2.0,
+    "r501": 3.0,
+    "r502": 4.0,
+    "r601": 2.0
+   },
+   "ok": true
+  }
+ },
+ {
+  "tool": "microwind_get_layers",
+  "arguments": {},
+  "result": {
+   "layers": [
+    {
+     "code": "NW",
+     "name": "nwell",
+     "kind": "well",
+     "cif": {
+      "layer": 1,
+      "overetch_um": 0.0
+     }
+    },
+    {
+     "code": "DN",
+     "name": "diffn",
+     "kind": "diffusion",
+     "cif": {
+      "layer": 16,
+      "overetch_um": 0.5
+     }
+    },
+    {
+     "code": "DP",
+     "name": "diffp",
+     "kind": "diffusion",
+     "cif": {
+      "layer": 17,
+      "overetch_um": 0.5
+     }
+    },
+    {
+     "code": "PO",
+     "name": "poly",
+     "kind": "gate",
+     "cif": {
+      "layer": 13,
+      "overetch_um": 0.0
+     }
+    },
+    {
+     "code": "CO",
+     "name": "contact",
+     "kind": "contact",
+     "cif": {
+      "layer": 19,
+      "overetch_um": 0.025
+     }
+    },
+    {
+     "code": "ME",
+     "name": "metal1",
+     "kind": "metal",
+     "metal_index": 1
+    },
+    {
+     "code": "M2",
+     "name": "metal2",
+     "kind": "metal",
+     "metal_index": 2,
+     "cif": {
+      "layer": 27,
+      "overetch_um": 0.0125
+     }
+    },
+    {
+     "code": "M3",
+     "name": "metal3",
+     "kind": "metal",
+     "metal_index": 3,
+     "cif": {
+      "layer": 34,
+      "overetch_um": 0.0125
+     }
+    },
+    {
+     "code": "M4",
+     "name": "metal4",
+     "kind": "metal",
+     "metal_index": 4,
+     "cif": {
+      "layer": 36,
+      "overetch_um": 0.0125
+     }
+    },
+    {
+     "code": "M5",
+     "name": "metal5",
+     "kind": "metal",
+     "metal_index": 5,
+     "cif": {
+      "layer": 53,
+      "overetch_um": 0.0
+     }
+    },
+    {
+     "code": "M6",
+     "name": "metal6",
+     "kind": "metal",
+     "metal_index": 6,
+     "cif": {
+      "layer": 55,
+      "overetch_um": 0.0
+     }
+    },
+    {
+     "code": "M7",
+     "name": "metal7",
+     "kind": "metal",
+     "metal_index": 7
+    },
+    {
+     "code": "M8",
+     "name": "metal8",
+     "kind": "metal",
+     "metal_index": 8
+    },
+    {
+     "code": "VI",
+     "name": "via1",
+     "kind": "via",
+     "connects": [
+      "ME",
+      "M2"
+     ]
+    },
+    {
+     "code": "V2",
+     "name": "via2",
+     "kind": "via",
+     "connects": [
+      "M2",
+      "M3"
+     ],
+     "cif": {
+      "layer": 32,
+      "overetch_um": 0.0125
+     }
+    },
+    {
+     "code": "V3",
+     "name": "via3",
+     "kind": "via",
+     "connects": [
+      "M3",
+      "M4"
+     ],
+     "cif": {
+      "layer": 35,
+      "overetch_um": 0.0125
+     }
+    },
+    {
+     "code": "V4",
+     "name": "via4",
+     "kind": "via",
+     "connects": [
+      "M4",
+      "M5"
+     ],
+     "cif": {
+      "layer": 52,
+      "overetch_um": 0.0125
+     }
+    },
+    {
+     "code": "V5",
+     "name": "via5",
+     "kind": "via",
+     "connects": [
+      "M5",
+      "M6"
+     ],
+     "cif": {
+      "layer": 54,
+      "overetch_um": 0.0
+     }
+    },
+    {
+     "code": "V6",
+     "name": "via6",
+     "kind": "via",
+     "connects": [
+      "M6",
+      "M7"
+     ]
+    },
+    {
+     "code": "V7",
+     "name": "via7",
+     "kind": "via",
+     "connects": [
+      "M7",
+      "M8"
+     ]
+    },
+    {
+     "code": "PA",
+     "name": "passivation",
+     "kind": "passivation"
+    },
+    {
+     "code": "P2",
+     "name": "poly2",
+     "kind": "capacitor"
+    },
+    {
+     "code": "OP",
+     "name": "overlay",
+     "kind": "device"
+    }
+   ],
+   "vias": {
+    "VI": [
+     "ME",
+     "M2"
+    ],
+    "V2": [
+     "M2",
+     "M3"
+    ],
+    "V3": [
+     "M3",
+     "M4"
+    ],
+    "V4": [
+     "M4",
+     "M5"
+    ],
+    "V5": [
+     "M5",
+     "M6"
+    ],
+    "V6": [
+     "M6",
+     "M7"
+    ],
+    "V7": [
+     "M7",
+     "M8"
+    ]
+   },
+   "metals": [
+    "ME",
+    "M2",
+    "M3",
+    "M4",
+    "M5",
+    "M6",
+    "M7",
+    "M8"
+   ],
+   "technology": "CMOS 0.12\u00b5m - 6 Metal",
+   "ok": true
+  }
+ },
+ {
+  "tool": "microwind_create_layout",
+  "arguments": {
+   "path": "examples\\generated\\mcp_smoke\\smoke_grid.MSK",
+   "width": 260,
+   "height": 200
+  },
+  "result": {
+   "layout": {
+    "path": "examples\\generated\\mcp_smoke\\smoke_grid.MSK",
+    "records": 6,
+    "rectangles": 0,
+    "bbox": null,
+    "size_lambda": null,
+    "size_um": null,
+    "layers": {},
+    "labels": [],
+    "label_count": 0,
+    "components": 0,
+    "structure_problems": [],
+    "header": {
+     "version": "VERSION 11/9/2026 7:37:37 PM",
+     "simu": "SIMU #2.50",
+     "fig": "FIG #examples\\generated\\mcp_smoke\\smoke_grid.MSK"
+    }
+   },
+   "file": {
+    "path": "<repo>\\examples\\generated\\mcp_smoke\\smoke_grid.MSK",
+    "created": false,
+    "bytes": 180
+   },
+   "technology": "cmos012.rul",
+   "ok": true
+  }
+ },
+ {
+  "tool": "microwind_generate_power_grid",
+  "arguments": {
+   "path": "examples\\generated\\mcp_smoke\\smoke_grid.MSK",
+   "layers": [
+    "ME",
+    "M2"
+   ],
+   "width": 200,
+   "height": 160,
+   "columns": 4,
+   "rows": 3,
+   "margin": 10
+  },
+  "result": {
+   "engine": "independent power-grid generator (credit: OdaiJ/microwind-power-grid-generator)",
+   "spec": {
+    "layers": [
+     "ME",
+     "M2"
+    ],
+    "vertical_layers": [
+     "ME"
+    ],
+    "horizontal_layers": [
+     "M2"
+    ],
+    "width": 200,
+    "height": 160,
+    "columns": 4,
+    "rows": 3,
+    "wire_width": 4,
+    "rail_widths": {
+     "ME": 4,
+     "M2": 4
+    },
+    "voltage_pattern": [
+     "VDD",
+     "VSS"
+    ],
+    "via_size": 2,
+    "via_pad": 4
+   },
+   "rails_planned": 7,
+   "rail_rects": [
+    {
+     "layer": "ME",
+     "bbox": [
+      10,
+      10,
+      14,
+      150
+     ],
+     "net": "VDD"
+    },
+    {
+     "layer": "ME",
+     "bbox": [
+      55,
+      10,
+      59,
+      150
+     ],
+     "net": "VSS"
+    },
+    {
+     "layer": "ME",
+     "bbox": [
+      100,
+      10,
+      104,
+      150
+     ],
+     "net": "VDD"
+    },
+    {
+     "layer": "ME",
+     "bbox": [
+      145,
+      10,
+      149,
+      150
+     ],
+     "net": "VSS"
+    },
+    {
+     "layer": "M2",
+     "bbox": [
+      10,
+      10,
+      190,
+      14
+     ],
+     "net": "VDD"
+    },
+    {
+     "layer": "M2",
+     "bbox": [
+      10,
+      56,
+      190,
+      60
+     ],
+     "net": "VSS"
+    },
+    {
+     "layer": "M2",
+     "bbox": [
+      10,
+      102,
+      190,
+      106
+     ],
+     "net": "VDD"
+    }
+   ],
+   "vias_planned": 6,
+   "collisions": [],
+   "collision_count": 0,
+   "changed": true,
+   "preserved_existing": true,
+   "rectangles_after": 25,
+   "labels": {
+    "VDD": 1,
+    "VSS": 1
+   },
+   "via_pairs": [
+    {
+     "layers": [
+      "ME",
+      "M2"
+     ],
+     "via": "VI",
+     "at": [
+      12,
+      12
+     ],
+     "net": "VDD"
+    },
+    {
+     "layers": [
+      "ME",
+      "M2"
+     ],
+     "via": "VI",
+     "at": [
+      12,
+      104
+     ],
+     "net": "VDD"
+    },
+    {
+     "layers": [
+      "ME",
+      "M2"
+     ],
+     "via": "VI",
+     "at": [
+      57,
+      58
+     ],
+     "net": "VSS"
+    },
+    {
+     "layers": [
+      "ME",
+      "M2"
+     ],
+     "via": "VI",
+     "at": [
+      102,
+      12
+     ],
+     "net": "VDD"
+    },
+    {
+     "layers": [
+      "ME",
+      "M2"
+     ],
+     "via": "VI",
+     "at": [
+      102,
+      104
+     ],
+     "net": "VDD"
+    },
+    {
+     "layers": [
+      "ME",
+      "M2"
+     ],
+     "via": "VI",
+     "at": [
+      147,
+      58
+     ],
+     "net": "VSS"
+    }
+   ],
+   "file": {
+    "path": "<repo>\\examples\\generated\\mcp_smoke\\smoke_grid.MSK",
+    "created": false,
+    "bytes": 749
+   },
+   "ok": true
+  }
+ },
+ {
+  "tool": "microwind_read_layout",
+  "arguments": {
+   "path": "examples\\generated\\mcp_smoke\\smoke_grid.MSK"
+  },
+  "result": {
+   "path": "examples\\generated\\mcp_smoke\\smoke_grid.MSK",
+   "records": 35,
+   "rectangles": 25,
+   "bbox": [
+    10,
+    10,
+    190,
+    150
+   ],
+   "size_lambda": [
+    180,
+    140
+   ],
+   "size_um": [
+    10.8,
+    8.4
+   ],
+   "layers": {
+    "ME": 10,
+    "M2": 9,
+    "VI": 6
+   },
+   "labels": [
+    {
+     "text": "VDD",
+     "code": "$1",
+     "at": [
+      12,
+      80
+     ]
+    },
+    {
+     "text": "VSS",
+     "code": "$0",
+     "at": [
+      57,
+      80
+     ]
+    }
+   ],
+   "label_count": 2,
+   "components": 2,
+   "structure_problems": [],
+   "header": {
+    "version": "VERSION 11/9/2026 7:37:37 PM",
+    "simu": "SIMU #2.50",
+    "fig": "FIG #examples\\generated\\mcp_smoke\\smoke_grid.MSK"
+   },
+   "ok": true
+  }
+ },
+ {
+  "tool": "microwind_run_checks",
+  "arguments": {
+   "path": "examples\\generated\\mcp_smoke\\smoke_grid.MSK"
+  },
+  "result": {
+   "engine": "independent-geometry-checks (not Microwind native DRC)",
+   "native_drc_run": false,
+   "technology": {
+    "file": "<microwind-home>\\rules\\cmos012.rul",
+    "version": "3.1",
+    "name": "CMOS 0.12\u00b5m - 6 Metal",
+    "lambda_um": 0.06,
+    "gate_length_um": 0.12,
+    "metal_layers": 6,
+    "rule_count": 208,
+    "cif_layers": [
+     "aarea",
+     "contact",
+     "diffn",
+     "diffp",
+     "metal",
+     "metal2",
+     "metal3",
+     "metal4",
+     "metal5",
+     "metal6",
+     "nwell",
+     "passiv",
+     "poly",
+     "text",
+     "via",
+     "via2",
+     "via3",
+     "via4",
+     "via5"
+    ],
+    "switches": {
+     "salicide": 1.0,
+     "edram": 1.0,
+     "mimcapa": 1.0,
+     "lowK": 3.1
+    },
+    "vdd": 1.2,
+    "temperature": 27.0
+   },
+   "summary": {
+    "rectangles": 25,
+    "labels": 2,
+    "components": 2,
+    "min_width_violations": 0,
+    "min_spacing_violations": 0,
+    "same_layer_overlaps": 12,
+    "width_checked_rectangles": 25,
+    "spacing_checked_layers": [
+     "M2",
+     "ME",
+     "VI"
+    ],
+    "skipped_layers": []
+   },
+   "power": {
+    "label_count": {
+     "VDD": 1,
+     "VSS": 1
+    },
+    "unattached_labels": [],
+    "shorted_components": [],
+    "ok": true
+   },
+   "violations": {
+    "min_width": [],
+    "min_spacing": [],
+    "truncated": false
+   },
+   "path": "examples\\generated\\mcp_smoke\\smoke_grid.MSK",
+   "ok": true
+  }
+ },
+ {
+  "tool": "microwind_generate_cmos_gate",
+  "arguments": {
+   "gate": "inverter",
+   "path": "examples\\generated\\mcp_smoke\\smoke_inverter.MSK"
+  },
+  "result": {
+   "gate": "SMOKE_INVERTER",
+   "rectangles": 54,
+   "structural": {
+    "nets": {
+     "VDD": [
+      16
+     ],
+     "VSS": [
+      4
+     ],
+     "A": [
+      47
+     ],
+     "Y": [
+      17
+     ]
+    },
+    "components": 4,
+    "shorts_or_opens": [],
+    "ok": true
+   },
+   "min_width_violations": [],
+   "min_spacing_violations": [],
+   "ok": true,
+   "file": {
+    "path": "<repo>\\examples\\generated\\mcp_smoke\\smoke_inverter.MSK",
+    "created": false,
+    "bytes": 1261
+   },
+   "nets": {
+    "VDD": {
+     "track_y": 20,
+     "terminals": [
+      [
+       87,
+       2
+      ]
+     ]
+    },
+    "VSS": {
+     "track_y": 30,
+     "terminals": [
+      [
+       27,
+       2
+      ]
+     ]
+    },
+    "A": {
+     "track_y": 40,
+     "terminals": [
+      [
+       38,
+       -6
+      ],
+      [
+       98,
+       -6
+      ]
+     ]
+    },
+    "Y": {
+     "track_y": 50,
+     "terminals": [
+      [
+       49,
+       2
+      ],
+      [
+       109,
+       2
+      ]
+     ]
+    }
+   }
+  }
+ },
+ {
+  "tool": "microwind_validate_file",
+  "arguments": {
+   "path": "examples\\generated\\mcp_smoke\\smoke_inverter.MSK"
+  },
+  "result": {
+   "path": "examples\\generated\\mcp_smoke\\smoke_inverter.MSK",
+   "kind": "layout",
+   "ok": true,
+   "problems": [],
+   "records": 66,
+   "rectangles": 54
+  }
+ },
+ {
+  "tool": "microwind_parse_layout",
+  "arguments": {
+   "path": "examples\\generated\\mcp_smoke\\smoke_inverter.MSK",
+   "limit": 5,
+   "kind": "TITLE"
+  },
+  "result": {
+   "path": "examples\\generated\\mcp_smoke\\smoke_inverter.MSK",
+   "record_count": 66,
+   "returned": 3,
+   "truncated": false,
+   "records": [
+    {
+     "kind": "TITLE",
+     "text": "TITLE 87 21  #VDD"
+    },
+    {
+     "kind": "TITLE",
+     "text": "TITLE 27 31  #VSS"
+    },
+    {
+     "kind": "TITLE",
+     "text": "TITLE 37 -13  #A"
+    }
+   ],
+   "ok": true
+  }
+ },
+ {
+  "tool": "microwind_add_label",
+  "arguments": {
+   "path": "examples\\generated\\mcp_smoke\\smoke_inverter.MSK",
+   "x": 2,
+   "y": 2,
+   "text": "PROBE",
+   "code": "$v"
+  },
+  "result": {
+   "label": {
+    "text": "PROBE",
+    "code": "$v",
+    "at": [
+     2,
+     2
+    ]
+   },
+   "file": {
+    "path": "<repo>\\examples\\generated\\mcp_smoke\\smoke_inverter.MSK",
+    "created": false,
+    "bytes": 1291
+   },
+   "labels": 4,
+   "ok": true
+  }
+ },
+ {
+  "tool": "microwind_modify_layout",
+  "arguments": {
+   "path": "examples\\generated\\mcp_smoke\\smoke_inverter.MSK",
+   "move": [
+    {
+     "x": 20,
+     "y": 0,
+     "dx": 0,
+     "dy": 2
+    }
+   ]
+  },
+  "result": {
+   "changes": {
+    "moved": 1,
+    "resized": 0,
+    "removed": 0,
+    "not_found": [
+     {
+      "x": 20,
+      "y": 0,
+      "dx": 0,
+      "dy": 2
+     }
+    ]
+   },
+   "file": {
+    "path": "<repo>\\examples\\generated\\mcp_smoke\\smoke_inverter.MSK",
+    "created": false,
+    "bytes": 1291
+   },
+   "rectangles": 54,
+   "ok": true
+  }
+ },
+ {
+  "tool": "microwind_list_projects",
+  "arguments": {
+   "directory": "examples\\generated\\mcp_smoke"
+  },
+  "result": {
+   "roots": [
+    "examples\\generated\\mcp_smoke"
+   ],
+   "count": 4,
+   "files": [
+    {
+     "path": "examples\\generated\\mcp_smoke\\smoke_grid.MSK",
+     "name": "smoke_grid.MSK",
+     "bytes": 749,
+     "kind": "layout"
+    },
+    {
+     "path": "examples\\generated\\mcp_smoke\\smoke_inverter.MSK",
+     "name": "smoke_inverter.MSK",
+     "bytes": 1291,
+     "kind": "layout"
+    },
+    {
+     "path": "examples\\generated\\mcp_smoke\\smoke_grid.MSK",
+     "name": "smoke_grid.MSK",
+     "bytes": 749,
+     "kind": "layout"
+    },
+    {
+     "path": "examples\\generated\\mcp_smoke\\smoke_inverter.MSK",
+     "name": "smoke_inverter.MSK",
+     "bytes": 1291,
+     "kind": "layout"
+    }
+   ],
+   "truncated": false,
+   "ok": true
+  }
+ },
+ {
+  "tool": "microwind_analyze_power_grid",
+  "arguments": {
+   "path": "examples\\generated\\mcp_smoke\\smoke_grid.MSK"
+  },
+  "result": {
+   "rails": [
+    {
+     "layer": "ME",
+     "bbox": [
+      10,
+      10,
+      14,
+      150
+     ]
+    },
+    {
+     "layer": "ME",
+     "bbox": [
+      55,
+      10,
+      59,
+      150
+     ]
+    },
+    {
+     "layer": "ME",
+     "bbox": [
+      100,
+      10,
+      104,
+      150
+     ]
+    },
+    {
+     "layer": "ME",
+     "bbox": [
+      145,
+      10,
+      149,
+      150
+     ]
+    },
+    {
+     "layer": "M2",
+     "bbox": [
+      10,
+      10,
+      190,
+      14
+     ]
+    },
+    {
+     "layer": "M2",
+     "bbox": [
+      10,
+      56,
+      190,
+      60
+     ]
+    },
+    {
+     "layer": "M2",
+     "bbox": [
+      10,
+      102,
+      190,
+      106
+     ]
+    }
+   ],
+   "rail_count": 7,
+   "components": 2,
+   "power_labels": {
+    "VDD": [
+     {
+      "text": "VDD",
+      "at": [
+       12,
+       80
+      ]
+     }
+    ],
+    "VSS": [
+     {
+      "text": "VSS",
+      "at": [
+       57,
+       80
+      ]
+     }
+    ]
+   },
+   "power_components": [
+    {
+     "bbox": [
+      10,
+      10,
+      190,
+      150
+     ],
+     "rectangles": 16,
+     "merged_shapes": 1,
+     "layers": [
+      "M2",
+      "ME",
+      "VI"
+     ],
+     "labels": [
+      {
+       "text": "VDD",
+       "code": "$1"
+      }
+     ]
+    },
+    {
+     "bbox": [
+      10,
+      10,
+      190,
+      150
+     ],
+     "rectangles": 9,
+     "merged_shapes": 1,
+     "layers": [
+      "M2",
+      "ME",
+      "VI"
+     ],
+     "labels": [
+      {
+       "text": "VSS",
+       "code": "$0"
+      }
+     ]
+    }
+   ],
+   "note": "rail detection is a heuristic (aspect ratio >= 4); connectivity uses vias",
+   "ok": true
+  }
+ },
+ {
+  "tool": "microwind_screenshot",
+  "arguments": {
+   "output": "examples\\generated\\mcp_smoke\\desktop.png"
+  },
+  "result": {
+   "path": "<repo>\\examples\\generated\\mcp_smoke\\desktop.png",
+   "bytes": 875972,
+   "ok": true
+  }
+ }
+]
